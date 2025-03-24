@@ -165,6 +165,7 @@ document.addEventListener('keydown', function(e) {
                 dx = 0;
                 dy = -1;
             }
+            startGameIfNotStarted();
             break;
         case 'ArrowDown':
         case 's':
@@ -173,6 +174,7 @@ document.addEventListener('keydown', function(e) {
                 dx = 0;
                 dy = 1;
             }
+            startGameIfNotStarted();
             break;
         case 'ArrowLeft':
         case 'a':
@@ -181,6 +183,7 @@ document.addEventListener('keydown', function(e) {
                 dx = -1;
                 dy = 0;
             }
+            startGameIfNotStarted();
             break;
         case 'ArrowRight':
         case 'd':
@@ -189,6 +192,7 @@ document.addEventListener('keydown', function(e) {
                 dx = 1;
                 dy = 0;
             }
+            startGameIfNotStarted();
             break;
     }
 });
@@ -199,6 +203,7 @@ document.getElementById('up').addEventListener('click', function() {
         dx = 0;
         dy = -1;
     }
+    startGameIfNotStarted();
 });
 
 document.getElementById('down').addEventListener('click', function() {
@@ -206,6 +211,7 @@ document.getElementById('down').addEventListener('click', function() {
         dx = 0;
         dy = 1;
     }
+    startGameIfNotStarted();
 });
 
 document.getElementById('left').addEventListener('click', function() {
@@ -213,6 +219,7 @@ document.getElementById('left').addEventListener('click', function() {
         dx = -1;
         dy = 0;
     }
+    startGameIfNotStarted();
 });
 
 document.getElementById('right').addEventListener('click', function() {
@@ -220,7 +227,19 @@ document.getElementById('right').addEventListener('click', function() {
         dx = 1;
         dy = 0;
     }
+    startGameIfNotStarted();
 });
+
+// Функция для запуска игры, если она еще не запущена
+let gameStarted = false;
+let gameInterval = null;
+
+function startGameIfNotStarted() {
+    if (!gameStarted) {
+        gameStarted = true;
+        gameInterval = setInterval(gameUpdate, gameSpeed);
+    }
+}
 
 // Основной игровой цикл
 function gameUpdate() {
@@ -478,4 +497,3 @@ function resetGame() {
 
 // Запуск игры
 resetGame();
-setInterval(gameUpdate, gameSpeed);
