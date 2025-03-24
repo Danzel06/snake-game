@@ -155,21 +155,70 @@ function startObstacleGeneration() {
     obstacleLoop();
 }
 
-// Управление змейкой
-document.addEventListener('keydown', (event) => {
-    switch(event.key) {
+// Обработчики событий для клавиатуры
+document.addEventListener('keydown', function(e) {
+    switch(e.key) {
         case 'ArrowUp':
-            if (dy !== 1) { dx = 0; dy = -1; }
+        case 'w':
+        case 'W':
+            if (dy !== 1) {
+                dx = 0;
+                dy = -1;
+            }
             break;
         case 'ArrowDown':
-            if (dy !== -1) { dx = 0; dy = 1; }
+        case 's':
+        case 'S':
+            if (dy !== -1) {
+                dx = 0;
+                dy = 1;
+            }
             break;
         case 'ArrowLeft':
-            if (dx !== 1) { dx = -1; dy = 0; }
+        case 'a':
+        case 'A':
+            if (dx !== 1) {
+                dx = -1;
+                dy = 0;
+            }
             break;
         case 'ArrowRight':
-            if (dx !== -1) { dx = 1; dy = 0; }
+        case 'd':
+        case 'D':
+            if (dx !== -1) {
+                dx = 1;
+                dy = 0;
+            }
             break;
+    }
+});
+
+// Обработчики событий для кнопок
+document.getElementById('up').addEventListener('click', function() {
+    if (dy !== 1) {
+        dx = 0;
+        dy = -1;
+    }
+});
+
+document.getElementById('down').addEventListener('click', function() {
+    if (dy !== -1) {
+        dx = 0;
+        dy = 1;
+    }
+});
+
+document.getElementById('left').addEventListener('click', function() {
+    if (dx !== 1) {
+        dx = -1;
+        dy = 0;
+    }
+});
+
+document.getElementById('right').addEventListener('click', function() {
+    if (dx !== -1) {
+        dx = 1;
+        dy = 0;
     }
 });
 
@@ -429,3 +478,4 @@ function resetGame() {
 
 // Запуск игры
 resetGame();
+gameLoop = setInterval(gameUpdate, gameSpeed);
