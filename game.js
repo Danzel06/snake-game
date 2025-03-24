@@ -478,4 +478,4 @@ function resetGame() {
 
 // Запуск игры
 resetGame();
-gameLoop = setInterval(gameUpdate, gameSpeed);
+setInterval(gameUpdate, gameSpeed);
