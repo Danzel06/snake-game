@@ -6,7 +6,7 @@ const scoreElement = document.getElementById('scoreValue');
 canvas.width = 290;
 canvas.height = 290;
 const gridSize = 20;
-const tileCount = canvas.width / gridSize;
+const tileCount = canvas.width / gridSize - 1; // Уменьшаем количество клеток на 1
 
 // Начальные значения
 let snake = [
