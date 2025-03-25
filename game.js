@@ -19,11 +19,13 @@ let food = {
 let obstacles = [];
 let dx = 0;
 let dy = 0;
-let gameSpeed = 200; // Возвращаем исходное значение
+let gameSpeed = 200; // Скорость обновления игры
 let score = 0;
 let gameLoop;
 let obstacleTimer; // Таймер для препятствий
 let obstacleGenerationStarted = false;
+let moveCounter = 0; // Счетчик для движения змейки
+const moveSpeed = 2; // Змейка будет двигаться каждые 2 обновления игры
 
 // Добавляем функцию для создания препятствий
 function generateObstacle() {
@@ -243,6 +245,10 @@ function startGameIfNotStarted() {
 
 // Основной игровой цикл
 function gameUpdate() {
+    moveCounter++;
+    if (moveCounter < moveSpeed) return;
+
+    moveCounter = 0;
     // Перемещение змейки
     const head = { x: snake[0].x + dx, y: snake[0].y + dy };
     snake.unshift(head);
@@ -476,23 +482,35 @@ function checkCollision() {
 
 // Сброс игры
 function resetGame() {
-    snake = [{ x: 7, y: 7 }];
+    // Сброс змейки
+    snake = [
+        { x: 7, y: 7 }
+    ];
+    
+    // Сброс направления
+    dx = 0;
+    dy = 0;
+    
+    // Сброс счета
+    score = 0;
+    scoreElement.textContent = score;
+    
+    // Сброс еды
     food = { 
         x: Math.floor(Math.random() * (tileCount - 2)) + 1,
         y: Math.floor(Math.random() * (tileCount - 2)) + 1
     };
-    obstacles = []; // Очищаем препятствия
-    dx = 0;
-    dy = 0;
-    score = 0;
-    scoreElement.textContent = score;
     
-    // Очищаем старые таймеры
-    clearInterval(gameLoop);
-    
-    // Запускаем новые циклы
-    gameLoop = setInterval(gameUpdate, gameSpeed);
+    // Сброс препятствий
+    obstacles = [];
     obstacleGenerationStarted = false;
+    
+    // Сброс счетчика движения
+    moveCounter = 0;
+    
+    // Очистка таймеров
+    if (gameLoop) clearInterval(gameLoop);
+    if (obstacleTimer) clearInterval(obstacleTimer);
 }
 
 // Запуск игры
