@@ -19,8 +19,8 @@ let food = {
 let obstacles = [];
 let dx = 0;
 let dy = 0;
+let gameSpeed = 300; // Увеличиваем значение для уменьшения скорости в полтора раза
 let score = 0;
-let gameSpeed = 200;
 let gameLoop;
 let obstacleTimer; // Таймер для препятствий
 let obstacleGenerationStarted = false;
